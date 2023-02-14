@@ -64,3 +64,17 @@ public class UserController extends HttpServlet {
 	
 	
 }
+/*
+ * Web - 컨트롤러
+ * service - 서비스
+ * Repository - 저장소
+ * 
+ * 사용자 -> (요청) -> 컨트롤러
+ * 응답을 HTML(정적으로)으로 바로 줄 수 있음
+ * 데이터가 필요하면 Service로 간다
+ * Service는 Repository에게 요청함
+ * DAO(Data Access Object): DB가 달라붙어 있음
+ * 네트워크면 통신과 관련 (다른 웹서버 컨트롤러에 요청하는 경우)
+ * 예시) 공공데이터
+ * 웹에서는 return을 HTML로 앱은 JSON으로 보통 사용
+*/
