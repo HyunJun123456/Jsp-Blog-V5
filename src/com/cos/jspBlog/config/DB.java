@@ -1,6 +1,7 @@
 package com.cos.jspBlog.config;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import javax.naming.Context;
@@ -23,5 +24,14 @@ public class DB {
 		return null;
 	}
 	
+	public static void close(Connection conn, PreparedStatement pstmt) {
+		try {
+			conn.close();
+			pstmt.close(); // 즉각적으로 연결 제거해줌
+		} catch (Exception e) {
+			System.out.println("DB연결실패");
+			e.printStackTrace();
+		}
+	}
 	
 }

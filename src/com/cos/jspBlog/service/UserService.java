@@ -1,6 +1,11 @@
 package com.cos.jspBlog.service;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import com.cos.jspBlog.domain.user.User;
+import com.cos.jspBlog.domain.user.UserDao;
 import com.cos.jspBlog.domain.user.dto.JoinReqDto;
 import com.cos.jspBlog.domain.user.dto.LoginReqDto;
 import com.cos.jspBlog.domain.user.dto.UpdateReqDto;
@@ -8,9 +13,15 @@ import com.cos.jspBlog.domain.user.dto.UpdateReqDto;
 public class UserService {
 	// 회원가입, 회원수정, 로그인, 로그아웃, 아이디 중복 체크
 	
-	public int join(JoinReqDto dto) {
-		
-		return -1; // update, insert니 실패했는지 성공했는지 int 값을 받으면 됨
+	private UserDao userDao;
+	
+	public UserService() {
+		userDao = new UserDao();
+	}
+	
+	public int join(JoinReqDto dto)  {
+		int result = userDao.save(dto); // 지금은 1대1 대응이지만 여러개의 dao를 사용할 수 있음 
+		return  result;// update, insert니 실패했는지 성공했는지 int 값을 받으면 됨
 	}
 	
 	// select * from user where username=? and password=?
