@@ -8,7 +8,7 @@
 </head>
 <body>
 <button onclick="idCheck();">아이디 있니?</button>
-
+<div id="box"></div>
 <script type="text/javascript">
 	function idCheck(){
 		alert("실행됨?");
@@ -18,7 +18,13 @@
 		  xhttp.onreadystatechange = function() {
 			  if(this.readyState == 4 && this.status == 200){
 				//document.getElementById("demo").innerHTML = this.responseText;
-				alert(this.responseText);
+				//alert(this.responseText);
+				if(this.responseText === "ok"){
+					var box = document.querySelector("#box");
+					box.innerHTML = "다른 아이디를 사용해야겠군";
+				}else{
+					alert("해당 아이디를 사용할 수 있습니다.");
+				}
 			}
 		}
 		xhttp.open("GET", "http://localhost:8080/jspBlog/ajax", true);

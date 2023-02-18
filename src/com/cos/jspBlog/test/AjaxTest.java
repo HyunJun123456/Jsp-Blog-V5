@@ -26,7 +26,7 @@ public class AjaxTest extends HttpServlet {
 		System.out.println("ajax 호출됨");
 		// 데이터 응답
 		PrintWriter out = response.getWriter();
-		out.println("ok");
+		out.print("ok"); // println을 쓰면 역슬래시가 들어가게 됨
 		out.flush();
 	}
 	
