@@ -84,4 +84,24 @@ public class UserController extends HttpServlet {
  * 네트워크면 통신과 관련 (다른 웹서버 컨트롤러에 요청하는 경우)
  * 예시) 공공데이터
  * 웹에서는 return을 HTML로 앱은 JSON으로 보통 사용
+ * 
+ * 정의
+ * Asynchronous JacaScript and XML
+ * 자바스크립트를 통해서 서버에 데이터를 요청하고 json을 응답받는다.
+ * 응답을 화면에 그리는 놈!!
+ * 응답에 대해서 먼가 분기나 프로그래밍은 못함
+ * 기본적인 웹
+ * 1. 요청 -> 응답(html) -> 브라우저는 그림 그리기
+ * (AJAX)
+ * 2. 요청 -> 응답(data) -> data에 따라서 어떻게 그려질지 프로그래밍을 하고 싶을 때
+ * 
+ * JavaScript XML 객체 (기본) - 원형
+ * JQuery 라이브러리 - Ajax 함수
+ * fetch() 함수
+ * axios() 함수 (라이브러리)
+ * 
+ * 
+ * 
+ * 
+ * 
 */
