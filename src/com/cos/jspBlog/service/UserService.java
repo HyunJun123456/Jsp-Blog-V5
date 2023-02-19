@@ -39,8 +39,8 @@ public class UserService {
 	//public void logout() {} // 서비스단까지 request를 처리하는게 아님
 		
 	public int duplicateCheck(String username) {
-		
-		return -1;
+		int result = userDao.findByUsername(username);
+		return result;
 	}
 	
 }

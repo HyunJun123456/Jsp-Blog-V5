@@ -2,6 +2,7 @@ package com.cos.jspBlog.domain.user;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import com.cos.jspBlog.config.DB;
 import com.cos.jspBlog.domain.user.dto.JoinReqDto;
@@ -38,6 +39,27 @@ public class UserDao {
 	
 	public void findById() { // 회원정보보기
 		
+	}
+
+	public int findByUsername(String username) {
+		String sql = "SELECT username FROM USER WHERE username = ?";
+		Connection conn = DB.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, username);			
+			rs = pstmt.executeQuery(); // update나 insert와 다름
+			// int result = pstmt.executeUpdate(); 
+			if(rs.next()) {
+				return 1; // 있어
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally { //  무조건 실행
+			DB.close(conn, pstmt, rs);
+		}
+		return -1; // 없어
 	}
 	
 	

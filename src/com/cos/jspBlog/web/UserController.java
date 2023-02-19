@@ -1,6 +1,9 @@
 package com.cos.jspBlog.web;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -65,6 +68,19 @@ public class UserController extends HttpServlet {
 			}else {
 				 Script.back(response, "회원가입 실패");
 			}
+		}else if(cmd.equals("usernameCheck")) {
+			// request.getParameter("username"); 이걸로 못 읽음
+			BufferedReader br = request.getReader();
+			String username = br.readLine();
+			System.out.println(username);
+			int result = userService.duplicateCheck(username);
+			PrintWriter out = response.getWriter();
+			if(result == 1) {
+				out.print("ok"); // ln붙이면 안됨
+			}else {
+				out.print("fail");
+			}
+			out.flush();
 		}
 		
 	}
