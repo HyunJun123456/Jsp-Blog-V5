@@ -9,7 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.cos.jspBlog.domain.user.User;
 import com.cos.jspBlog.domain.user.dto.JoinReqDto;
 import com.cos.jspBlog.domain.user.dto.LoginReqDto;
 import com.cos.jspBlog.service.UserService;
@@ -47,7 +49,14 @@ public class UserController extends HttpServlet {
 			dto.setUsername(username);
 			dto.setPassword(password);
 			// 가공은 컨트롤러에서 해서 가져오면 됨
-			userService.login(dto);
+			User userEntity = userService.login(dto);
+			if(userEntity != null) {
+				HttpSession session = request.getSession();
+				session.setAttribute("principal", userEntity); // 인증주체
+				response.sendRedirect("index.jsp");
+			}else {
+				Script.back(response, "로그인실패");
+			}
 		}else if(cmd.equals("joinForm")) {
 			response.sendRedirect("user/joinForm.jsp");
 		}else if(cmd.equals("join")) {
@@ -81,6 +90,10 @@ public class UserController extends HttpServlet {
 				out.print("fail");
 			}
 			out.flush();
+		}else if(cmd.equals("logout")) {
+			HttpSession session = request.getSession();
+			session.invalidate();
+			response.sendRedirect("index.jsp");
 		}
 		
 	}

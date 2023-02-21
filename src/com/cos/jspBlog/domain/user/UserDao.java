@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 
 import com.cos.jspBlog.config.DB;
 import com.cos.jspBlog.domain.user.dto.JoinReqDto;
+import com.cos.jspBlog.domain.user.dto.LoginReqDto;
 
 public class UserDao {
 	public int save(JoinReqDto dto) { // 회원가입
@@ -60,6 +61,35 @@ public class UserDao {
 			DB.close(conn, pstmt, rs);
 		}
 		return -1; // 없어
+	}
+
+	public User findByUsernameAndPassword(LoginReqDto dto) {
+		String sql = "SELECT id, username, email, address FROM USER WHERE username = ? AND password=?";
+		Connection conn = DB.getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getUsername());			
+			pstmt.setString(2, dto.getPassword());			
+			rs = pstmt.executeQuery(); // update나 insert와 다름
+			
+			// Persistence API가 대신해줌
+			if(rs.next()) {
+				User user = User.builder()
+									.id(rs.getInt("id"))
+									.username(rs.getString("username"))
+									.email(rs.getString("email"))
+									.address(rs.getString("address"))
+									.build();
+				return user;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally { //  무조건 실행
+			DB.close(conn, pstmt, rs);
+		}
+		return null;
 	}
 	
 	

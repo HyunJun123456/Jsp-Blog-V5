@@ -27,8 +27,7 @@ public class UserService {
 	// select * from user where username=? and password=?
 	public User login(LoginReqDto dto) {// 조인해서 같이 들고 온 값은 user에서 사용을 못함 (board도 사용하는 경우)
 		// 로그인하고 세션을 만들꺼니깐 select해서 행을 리턴하게 됨
-		
-		return null;
+		return userDao.findByUsernameAndPassword(dto);
 	}
 	
 	public int update(UpdateReqDto dto) {
